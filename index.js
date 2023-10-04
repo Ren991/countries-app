@@ -68,8 +68,8 @@ function muestraTarjetas(datosPaises) {
                 // Muestra la tarjeta de detalle con la información del país seleccionado
                 var detalleHTML = `
             <div class="detalle-tarjeta-contenido">
-            <button onclick="cerrarDetalle()">Cerrar</button>              
-              <h2 class="nombre">${pais.nombre}</h2>
+            
+              <button class="botoncerrar" onclick="cerrarDetalle()">Cerrar</button>              
             </div>
           `;
                 detalleTarjeta.innerHTML = detalleHTML;
