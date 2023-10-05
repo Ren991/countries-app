@@ -16,7 +16,7 @@ async function fetchData() {
             throw new Error('Error en la solicitud');
         }
         const data = await response.json();
-        
+
 
         // Llama a otra función y pásale el array de datos de países
         processData(data);
@@ -26,29 +26,29 @@ async function fetchData() {
 }
 
 function processData(countriesData) {
-    
-    datosPaises = [];
-    
 
-   
+    datosPaises = [];
+
+
+
     countriesData.forEach(country => {
 
 
-        
+
         datosPaises.push({
             nombre: country.name.common,
             bandera: country.flags.svg,
             continente: country.region,
             mapa: country.maps.googleMaps,
             poblacion: country.population,
-            idioma:country.languages !== undefined ? Object.values(country.languages)[0] : "-",
-            coordenadas:country.latlng,
-            capital:country.capital,
-            independiente: country.independent === true ? "Si": "No",
+            idioma: country.languages !== undefined ? Object.values(country.languages)[0] : "-",
+            coordenadas: country.latlng,
+            capital: country.capital,
+            independiente: country.independent === true ? "Si" : "No",
             zonahoraria: country.timezones[0],
         })
     });
-    
+
 
     muestraTarjetas(datosPaises);
 }
@@ -123,11 +123,11 @@ function muestraTarjetas(datosPaises) {
 
 function filtrarContinente() {
     var opcionSeleccionada = document.getElementById("select-continentes").value;
-    
+
 
     if (opcionSeleccionada !== "0") {
         continenteFiltrado = datosPaises.filter(pais => pais.continente === opcionSeleccionada);
-       muestraTarjetas(continenteFiltrado)
+        muestraTarjetas(continenteFiltrado)
 
     } else {
         muestraTarjetas(datosPaises)
@@ -137,7 +137,7 @@ function filtrarContinente() {
 
 function filtrarPaises() {
     var ingresoUser = document.getElementById("filtroPais").value;
-    
+
 
     if (continenteFiltrado.length !== 0) {
         paisesFiltrados = continenteFiltrado.filter(pais => pais.nombre.toLowerCase().includes(ingresoUser));
