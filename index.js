@@ -54,12 +54,12 @@ function muestraTarjetas(datosPaises) {
         var pais = datosPaises[i];
         var tarjetaHTML = `
       <div class="tarjeta">
-        <img src="${pais.bandera}" alt="${pais.nombre}" class="bandera" height="50">
+        <img src="${pais.bandera}" alt="${pais.nombre}" class="bandera" height="40" width="200">
         <h2 class="nombre">${pais.nombre}</h2>
         <p><strong>Capital:</strong> </p>
         <p><strong>Región:</strong> ${pais.continente}</p>
         <p><strong>Población:</strong> ${pais.poblacion.toLocaleString()}</p>
-      </div>
+      </div> 
     `;
         tarjetaHTML = (function (pais) {
             var tarjeta = document.createElement('div');
