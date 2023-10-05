@@ -1,5 +1,8 @@
 // Declara una variable global para almacenar los datos de los países
 var datosPaises = [];
+var continenteFiltrado = [];
+var paisesFiltrados = [];
+
 
 function cerrarDetalle() {
     var detalleTarjeta = document.getElementById("detallePais");
@@ -57,11 +60,10 @@ function muestraTarjetas(datosPaises) {
         var pais = datosPaises[i];
         var tarjetaHTML = `
       <div class="tarjeta">
-        <img src="${pais.bandera}" alt="${pais.nombre}" class="bandera" height="40" width="200">
-        <h2 class="nombre">${pais.nombre}</h2>
-        <p><strong>Capital:</strong> </p>
-        <p><strong>Región:</strong> ${pais.continente}</p>
-        <p><strong>Población:</strong> ${pais.poblacion.toLocaleString()}</p>
+        <img src="${pais.bandera}" alt="${pais.nombre}"  height="40" width="200">
+        <h1 class="nombre">${pais.nombre}</h1>
+        
+        
       </div> 
     `;
         tarjetaHTML = (function (pais) {
@@ -70,9 +72,41 @@ function muestraTarjetas(datosPaises) {
             tarjeta.querySelector('.tarjeta').addEventListener("click", function () {
                 // Muestra la tarjeta de detalle con la información del país seleccionado
                 var detalleHTML = `
-            <div class="detalle-tarjeta-contenido">
-              <button class="botoncerrar" onclick="cerrarDetalle()">Cerrar</button>              
+            
+
+
+
+            <div class="card">
+            <div class="header">
+              <div>
+                <a class="title" href="#">
+                <h1 class="nombre">${pais.nombre}</h1>
+                </a>
+                <p class="name">By John Doe</p>
+              </div>
+                
+                <img src="${pais.bandera}" alt="${pais.nombre}" class="bandera" >
+                
             </div>
+              <p class="description">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. At velit illum
+                provident a, ipsa maiores deleniti consectetur nobis et eaque.
+              </p>
+            <dl class="post-info">
+              <div class="cr">
+                <dt class="dt">Published</dt>
+                <dd class="dd">31st June, 2021</dd>
+              </div>
+              <div class="cr">
+                <dt class="dt">Reading time</dt>
+                <dd class="dd">3 minute</dd>
+              </div>
+              
+            </dl>
+            <button  onclick="cerrarDetalle()">Cerrar</button> 
+          </div>   
+
+
           `;
                 detalleTarjeta.innerHTML = detalleHTML;
                 detalleTarjeta.style.display = "block"; // Muestra la tarjeta de detalle
@@ -88,26 +122,30 @@ function muestraTarjetas(datosPaises) {
 function filtrarContinente() {
     var opcionSeleccionada = document.getElementById("select-continentes").value;
     console.log(opcionSeleccionada);
-    
-    if(opcionSeleccionada !== "0"){
-        var continenteFiltrado = datosPaises.filter(pais => pais.continente === opcionSeleccionada);
+
+    if (opcionSeleccionada !== "0") {
+        continenteFiltrado = datosPaises.filter(pais => pais.continente === opcionSeleccionada);
         console.log(continenteFiltrado);
         muestraTarjetas(continenteFiltrado)
-    
-    }else{
+
+    } else {
         muestraTarjetas(datosPaises)
     }
-   
+
 }
 
-function filtrarPaises(){
+function filtrarPaises() {
     var ingresoUser = document.getElementById("filtroPais").value;
     console.log(ingresoUser);
-    var paisesFiltrados = datosPaises.filter(pais => pais.nombre.toLowerCase().includes(ingresoUser));
 
-    console.log(paisesFiltrados);
-    if(paisesFiltrados.length === 0){
-        
+    if (continenteFiltrado.length !== 0) {
+        paisesFiltrados = continenteFiltrado.filter(pais => pais.nombre.toLowerCase().includes(ingresoUser));
+    } else {
+        paisesFiltrados = datosPaises.filter(pais => pais.nombre.toLowerCase().includes(ingresoUser));
+    }
+
+    if (paisesFiltrados.length === 0) {
+
         Swal.fire({
 
             icon: 'error',
@@ -116,14 +154,14 @@ function filtrarPaises(){
 
         })
         muestraTarjetas(datosPaises)
-        document.getElementById("filtroPais").value ="";
-        
-    }else{
+        document.getElementById("filtroPais").value = "";
+
+    } else {
         // Muestra las tarjetas de los países filtrados
-    muestraTarjetas(paisesFiltrados);
+        muestraTarjetas(paisesFiltrados);
     }
 
-    
+
 
 }
 
