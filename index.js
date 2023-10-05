@@ -16,7 +16,7 @@ async function fetchData() {
             throw new Error('Error en la solicitud');
         }
         const data = await response.json();
-        console.log(data);
+        
 
         // Llama a otra función y pásale el array de datos de países
         processData(data);
@@ -26,24 +26,29 @@ async function fetchData() {
 }
 
 function processData(countriesData) {
-    // Ahora puedes trabajar con el array de datos de países aquí
-    console.log('Número de países:', countriesData.length);
-
-    // Limpia el contenido previo del array de datos de países
+    
     datosPaises = [];
+    
 
-    // Ejemplo: Imprime los nombres de los países
+   
     countriesData.forEach(country => {
-        console.log(country.name.common);
+
+
+        
         datosPaises.push({
             nombre: country.name.common,
             bandera: country.flags.svg,
             continente: country.region,
             mapa: country.maps.googleMaps,
-            poblacion: country.population
+            poblacion: country.population,
+            idioma:country.languages !== undefined ? Object.values(country.languages)[0] : "-",
+            coordenadas:country.latlng,
+            capital:country.capital,
+            independiente: country.independent === true ? "Si": "No",
+            zonahoraria: country.timezones[0],
         })
     });
-    console.log(datosPaises);
+    
 
     muestraTarjetas(datosPaises);
 }
@@ -62,11 +67,13 @@ function muestraTarjetas(datosPaises) {
       <div class="tarjeta">
         <img src="${pais.bandera}" alt="${pais.nombre}"  height="40" width="200">
         <h1 class="nombre">${pais.nombre}</h1>
+        <h6>${pais.continente}</h6>
         
         
       </div> 
     `;
         tarjetaHTML = (function (pais) {
+
             var tarjeta = document.createElement('div');
             tarjeta.innerHTML = tarjetaHTML;
             tarjeta.querySelector('.tarjeta').addEventListener("click", function () {
@@ -82,28 +89,23 @@ function muestraTarjetas(datosPaises) {
                 <a class="title" href="#">
                 <h1 class="nombre">${pais.nombre}</h1>
                 </a>
-                <p class="name">By John Doe</p>
+                <p class="name">Continente: ${pais.continente}</p>
               </div>
                 
                 <img src="${pais.bandera}" alt="${pais.nombre}" class="bandera" >
                 
             </div>
-              <p class="description">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. At velit illum
-                provident a, ipsa maiores deleniti consectetur nobis et eaque.
-              </p>
-            <dl class="post-info">
-              <div class="cr">
-                <dt class="dt">Published</dt>
-                <dd class="dd">31st June, 2021</dd>
-              </div>
-              <div class="cr">
-                <dt class="dt">Reading time</dt>
-                <dd class="dd">3 minute</dd>
-              </div>
               
-            </dl>
-            <button  onclick="cerrarDetalle()">Cerrar</button> 
+            <div>
+                <h5>Poblacion: ${pais.poblacion}</h5>
+                <h5>Idioma: ${pais.idioma}</h5>
+                <h5>Coordenadas: ${pais.coordenadas}</h5>
+                <h5>Capital: ${pais.capital}</h5>
+                <h5>País independiente: ${pais.independiente}</h5>
+                <h5>Zona horaria: ${pais.zonahoraria}</h5>
+            </div>
+
+            <button class="botonCerrar" onclick="cerrarDetalle()">Cerrar</button> 
           </div>   
 
 
@@ -121,12 +123,11 @@ function muestraTarjetas(datosPaises) {
 
 function filtrarContinente() {
     var opcionSeleccionada = document.getElementById("select-continentes").value;
-    console.log(opcionSeleccionada);
+    
 
     if (opcionSeleccionada !== "0") {
         continenteFiltrado = datosPaises.filter(pais => pais.continente === opcionSeleccionada);
-        console.log(continenteFiltrado);
-        muestraTarjetas(continenteFiltrado)
+       muestraTarjetas(continenteFiltrado)
 
     } else {
         muestraTarjetas(datosPaises)
@@ -136,7 +137,7 @@ function filtrarContinente() {
 
 function filtrarPaises() {
     var ingresoUser = document.getElementById("filtroPais").value;
-    console.log(ingresoUser);
+    
 
     if (continenteFiltrado.length !== 0) {
         paisesFiltrados = continenteFiltrado.filter(pais => pais.nombre.toLowerCase().includes(ingresoUser));
