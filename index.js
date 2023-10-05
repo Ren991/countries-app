@@ -1,7 +1,11 @@
+// Declara una variable global para almacenar los datos de los países
+var datosPaises = [];
+
 function cerrarDetalle() {
     var detalleTarjeta = document.getElementById("detallePais");
     detalleTarjeta.style.display = "none"; // Oculta la tarjeta de detalle
 }
+
 async function fetchData() {
     try {
         const response = await fetch('https://restcountries.com/v3.1/all');
@@ -22,7 +26,9 @@ function processData(countriesData) {
     // Ahora puedes trabajar con el array de datos de países aquí
     console.log('Número de países:', countriesData.length);
 
-    var datosPaises = [];
+    // Limpia el contenido previo del array de datos de países
+    datosPaises = [];
+
     // Ejemplo: Imprime los nombres de los países
     countriesData.forEach(country => {
         console.log(country.name.common);
@@ -31,15 +37,12 @@ function processData(countriesData) {
             bandera: country.flags.svg,
             continente: country.region,
             mapa: country.maps.googleMaps,
-
-
             poblacion: country.population
         })
     });
     console.log(datosPaises);
 
     muestraTarjetas(datosPaises);
-
 }
 
 function muestraTarjetas(datosPaises) {
@@ -68,7 +71,6 @@ function muestraTarjetas(datosPaises) {
                 // Muestra la tarjeta de detalle con la información del país seleccionado
                 var detalleHTML = `
             <div class="detalle-tarjeta-contenido">
-            
               <button class="botoncerrar" onclick="cerrarDetalle()">Cerrar</button>              
             </div>
           `;
@@ -80,13 +82,51 @@ function muestraTarjetas(datosPaises) {
 
         // Agrega la tarjeta al contenedor
         contenedorTarjetas.appendChild(tarjetaHTML);
+    }
+}
 
+function filtrarContinente() {
+    var opcionSeleccionada = document.getElementById("select-continentes").value;
+    console.log(opcionSeleccionada);
+    
+    if(opcionSeleccionada !== "0"){
+        var continenteFiltrado = datosPaises.filter(pais => pais.continente === opcionSeleccionada);
+        console.log(continenteFiltrado);
+        muestraTarjetas(continenteFiltrado)
+    
+    }else{
+        muestraTarjetas(datosPaises)
+    }
+   
+}
+
+function filtrarPaises(){
+    var ingresoUser = document.getElementById("filtroPais").value;
+    console.log(ingresoUser);
+    var paisesFiltrados = datosPaises.filter(pais => pais.nombre.toLowerCase().includes(ingresoUser));
+
+    console.log(paisesFiltrados);
+    if(paisesFiltrados.length === 0){
+        
+        Swal.fire({
+
+            icon: 'error',
+            title: 'No se encontraron resultados',
+            showConfirmButton: true,
+
+        })
+        muestraTarjetas(datosPaises)
+        document.getElementById("filtroPais").value ="";
+        
+    }else{
+        // Muestra las tarjetas de los países filtrados
+    muestraTarjetas(paisesFiltrados);
     }
 
+    
 
 }
 
-
-
 fetchData();
+
 
