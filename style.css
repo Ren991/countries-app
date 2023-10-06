@@ -165,6 +165,9 @@ header{
 #juegoCapitales{
   display: none;
 }
+#juegoBanderas{
+  display:none;
+}
 
 
 @media (min-width: 768px) {

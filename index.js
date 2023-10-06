@@ -179,33 +179,40 @@ function juegoCapitales() {
     var contenedorTarjetas = document.getElementById("contenedorTarjetas");
     var detallePais = document.getElementById("detallePais");
     var contJuegCap = document.getElementById("juegoCapitales")
-    
-    contenedorTarjetas.style.display = "none";     
+
+    contenedorTarjetas.style.display = "none";
     detallePais.style.display = "none";
-    contJuegCap.style.display = "block"
+    contJuegCap.style.display = "block";
 
     indiceAleatorio = Math.floor(Math.random() * 250);
 
-    if(indicePreguntaActual > 5){
+    if (indicePreguntaActual > 5) {
         Swal.fire({
 
             icon: 'success',
-            title: 'No se encontraron resultados',
+            title: 'Juego terminado',
             showConfirmButton: true,
 
         })
         console.log(respuestaCorrectas);
         console.log(respuestaIncorrectas);
         contenedorTarjetas.style.display = "flex";
-        contJuegCap.style.display = "none"
+        contJuegCap.style.display = "none";
+
+
+        //Se vuelven a inicializar en cero el puntaje y el índice
+        indicePreguntaActual = 0;
+        puntaje = 0;
+        respuestaCorrectas = 0;
+        respuestaIncorrectas = 0;
 
 
 
-    }else{
+    } else {
         mostrarPregunta(indiceAleatorio, indicePreguntaActual);
     }
 
-    
+
 
 }
 
@@ -220,35 +227,60 @@ function mostrarPregunta(indiceAleatorio, indicePreguntaActual) {
     console.log(paisAleatorio);
     console.log(capitalAleatorio);
 
-    pregunta.innerHTML = `Cual es la capital del pais ${paisAleatorio.nombre} ?` 
+    pregunta.innerHTML = `Cual es la capital del pais ${paisAleatorio.nombre} ?`
 
-   
-  }
-  
-  function verificarRespuesta() {
-        var respuestaCorrecta = capitalAleatorio;
-        var respuestaUser = document.getElementById("respuesta").value;
 
-        if(respuestaUser === "" || undefined){
-            console.log("El campo no puede estar vacío")
-        }else{
-            if(respuestaUser.toLowerCase() !== respuestaCorrecta.toLowerCase()){
-                console.log("respuesta incorretca")
-                respuestaIncorrectas += 1
-            }else{
-                console.log("respuesta correcta")
-                respuestaCorrecta += 1
-            }
-            indicePreguntaActual += 1
-            document.getElementById("respuesta").value = "";
-            juegoCapitales()
-            
+}
+
+function verificarRespuesta() {
+    var respuestaCorrecta = capitalAleatorio;
+    var respuestaUser = document.getElementById("respuesta").value;
+
+    if (respuestaUser === "" || undefined) {
+        console.log("El campo no puede estar vacío")
+    } else {
+        if (respuestaUser.toLowerCase() !== respuestaCorrecta.toLowerCase()) {
+            console.log("respuesta incorretca")
+            respuestaIncorrectas += 1
+        } else {
+            console.log("respuesta correcta")
+            respuestaCorrecta += 1
         }
+        indicePreguntaActual += 1
+        document.getElementById("respuesta").value = "";
+        juegoCapitales()
 
-       
-  }
+    }
 
 
+}
+
+function volver(){
+        document.getElementById("contenedorTarjetas").style.display = "flex";
+        document.getElementById("contJuegCap").style.display = "none";
+        document.getElementById("contJuegBan").style.display = "none";
+
+
+        //Se vuelven a inicializar en cero el puntaje y el índice
+        indicePreguntaActual = 0;
+        puntaje = 0;
+        respuestaCorrectas = 0;
+        respuestaIncorrectas = 0;
+}
+
+/*FIN JUEGO CAPITALES*/
+
+/*JUEGO BANDERAS*/
+function juegoBanderas(){
+    var contenedorTarjetas = document.getElementById("contenedorTarjetas");
+    var detallePais = document.getElementById("detallePais");
+    var contJuegBan = document.getElementById("juegoBanderas")
+
+    contenedorTarjetas.style.display = "none";
+    detallePais.style.display = "none";
+    contJuegBan.style.display = "block";
+}
+/*FIN JUEGO BANDERAS*/
 
 fetchData();
 
