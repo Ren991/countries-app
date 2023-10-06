@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="icon" type="image/svg+xml" href="">
 </head>
 
 <body>
@@ -20,33 +22,38 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                
+
                 <li class="nav-item dropdown">
-                    <select id="select-continentes" onchange="filtrarContinente()" class="form-control" id="exampleFormControlSelect1">
+                    <select id="select-continentes" onchange="filtrarContinente()" class="form-control"
+                        id="exampleFormControlSelect1">
                         <option value="0">Filtrar por continente</option>
                         <option value="Americas">America</option>
                         <option value="Europe">Europa</option>
                         <option value="Oceania">Oceania</option>
-                        <option value="Africa">Africa</option>                        
+                        <option value="Africa">Africa</option>
                     </select>
 
 
                 </li>
-              
+                <button class="btn btn-outline-success my-2 my-sm-0" onclick="juegoCapitales()">Juego de
+                    Capitales</button>
+
             </ul>
             <form class="form-inline my-2 my-lg-0">
-                <input id="filtroPais" class="form-control mr-sm-2" type="search" oninput="filtrarPaises()" placeholder="filtrar por pais" aria-label="Search">
+                <input id="filtroPais" class="form-control mr-sm-2" type="search" oninput="filtrarPaises()"
+                    placeholder="filtrar por pais" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>
     </nav>
     <div id="contenedorTarjetas">
     </div>
-
-
-
     <div id="detallePais" class="detalle-tarjeta">
-
+    </div>
+    <div id="juegoCapitales">
+        <p id="pregunta"></p>
+        <input type="text" id="respuesta" placeholder="Escribe tu respuesta">
+        <button onclick="verificarRespuesta()">Enviar respuesta</button>
     </div>
 
 </body>

@@ -166,6 +166,90 @@ function filtrarPaises() {
 
 }
 
+/*JUEGO CAPITALES*/
+var indiceAleatorio;
+var indicePreguntaActual = 0;
+var puntaje = 0;
+var paisAleatorio;
+var capitalAleatorio;
+var respuestaCorrectas = 0;
+var respuestaIncorrectas = 0;
+
+function juegoCapitales() {
+    var contenedorTarjetas = document.getElementById("contenedorTarjetas");
+    var detallePais = document.getElementById("detallePais");
+    var contJuegCap = document.getElementById("juegoCapitales")
+    
+    contenedorTarjetas.style.display = "none";     
+    detallePais.style.display = "none";
+    contJuegCap.style.display = "block"
+
+    indiceAleatorio = Math.floor(Math.random() * 250);
+
+    if(indicePreguntaActual > 5){
+        Swal.fire({
+
+            icon: 'success',
+            title: 'No se encontraron resultados',
+            showConfirmButton: true,
+
+        })
+        console.log(respuestaCorrectas);
+        console.log(respuestaIncorrectas);
+        contenedorTarjetas.style.display = "flex";
+        contJuegCap.style.display = "none"
+
+
+
+    }else{
+        mostrarPregunta(indiceAleatorio, indicePreguntaActual);
+    }
+
+    
+
+}
+
+function mostrarPregunta(indiceAleatorio, indicePreguntaActual) {
+    console.log(indicePreguntaActual);
+    console.log(indiceAleatorio);
+
+    var pregunta = document.getElementById("pregunta")
+
+    paisAleatorio = datosPaises[indiceAleatorio];
+    capitalAleatorio = paisAleatorio.capital[0];
+    console.log(paisAleatorio);
+    console.log(capitalAleatorio);
+
+    pregunta.innerHTML = `Cual es la capital del pais ${paisAleatorio.nombre} ?` 
+
+   
+  }
+  
+  function verificarRespuesta() {
+        var respuestaCorrecta = capitalAleatorio;
+        var respuestaUser = document.getElementById("respuesta").value;
+
+        if(respuestaUser === "" || undefined){
+            console.log("El campo no puede estar vacío")
+        }else{
+            if(respuestaUser.toLowerCase() !== respuestaCorrecta.toLowerCase()){
+                console.log("respuesta incorretca")
+                respuestaIncorrectas += 1
+            }else{
+                console.log("respuesta correcta")
+                respuestaCorrecta += 1
+            }
+            indicePreguntaActual += 1
+            document.getElementById("respuesta").value = "";
+            juegoCapitales()
+            
+        }
+
+       
+  }
+
+
+
 fetchData();
 
 
