@@ -15,8 +15,7 @@ async function fetchData() {
         if (!response.ok) {
             throw new Error('Error en la solicitud');
         }
-        const data = await response.json();
-        console.log(data)
+        const data = await response.json();       
 
 
         // Llama a otra función y pásale el array de datos de países
@@ -30,11 +29,7 @@ function processData(countriesData) {
 
     datosPaises = [];
 
-
-
-    countriesData.forEach(country => {
-
-        console.log()
+    countriesData.forEach(country => {       
 
         datosPaises.push({
             nombre: country.translations.spa.common,
@@ -79,34 +74,30 @@ function muestraTarjetas(datosPaises) {
             tarjeta.innerHTML = tarjetaHTML;
             tarjeta.querySelector('.tarjeta').addEventListener("click", function () {
                 // Muestra la tarjeta de detalle con la información del país seleccionado
-                var detalleHTML = `
-            
-
-
-
+                var detalleHTML = `         
             <div class="card">
-            <div class="header">
-              <div>
-                <a class="title" href="#">
-                <h1 class="nombre">${pais.nombre}</h1>
-                </a>
-                <p class="name">Continente: ${pais.continente}</p>
-              </div>
+                <div class="header">
+                <div>
+                    <a class="title" href="#">
+                    <h1 class="nombre">${pais.nombre}</h1>
+                    </a>
+                    <p class="name">Continente: ${pais.continente}</p>
+                </div>
+                    
+                    <img src="${pais.bandera}" alt="${pais.nombre}" class="bandera" >
+                    
+                </div>
                 
-                <img src="${pais.bandera}" alt="${pais.nombre}" class="bandera" >
-                
-            </div>
-              
-            <div>
-                <h5>Poblacion: ${pais.poblacion}</h5>
-                <h5>Idioma: ${pais.idioma}</h5>
-                <h5>Coordenadas: ${pais.coordenadas}</h5>
-                <h5>Capital: ${pais.capital}</h5>
-                <h5>País independiente: ${pais.independiente}</h5>
-                <h5>Zona horaria: ${pais.zonahoraria}</h5>
-            </div>
+                <div>
+                    <h5>Poblacion: ${pais.poblacion}</h5>
+                    <h5>Idioma: ${pais.idioma}</h5>
+                    <h5>Coordenadas: ${pais.coordenadas}</h5>
+                    <h5>Capital: ${pais.capital}</h5>
+                    <h5>País independiente: ${pais.independiente}</h5>
+                    <h5>Zona horaria: ${pais.zonahoraria}</h5>
+                </div>
 
-            <button class="botonCerrar" onclick="cerrarDetalle()">Cerrar</button> 
+                <button class="botonCerrar" onclick="cerrarDetalle()">Cerrar</button> 
           </div>   
 
 
@@ -125,7 +116,6 @@ function muestraTarjetas(datosPaises) {
 function filtrarContinente() {
     var opcionSeleccionada = document.getElementById("select-continentes").value;
 
-
     if (opcionSeleccionada !== "0") {
         continenteFiltrado = datosPaises.filter(pais => pais.continente === opcionSeleccionada);
         muestraTarjetas(continenteFiltrado)
@@ -133,12 +123,10 @@ function filtrarContinente() {
     } else {
         muestraTarjetas(datosPaises)
     }
-
 }
 
 function filtrarPaises() {
     var ingresoUser = document.getElementById("filtroPais").value;
-
 
     if (continenteFiltrado.length !== 0) {
         paisesFiltrados = continenteFiltrado.filter(pais => pais.nombre.toLowerCase().includes(ingresoUser));
@@ -162,9 +150,6 @@ function filtrarPaises() {
         // Muestra las tarjetas de los países filtrados
         muestraTarjetas(paisesFiltrados);
     }
-
-
-
 }
 
 /*JUEGO CAPITALES*/
@@ -181,14 +166,12 @@ function juegoCapitales() {
     var contenedorTarjetas = document.getElementById("contenedorTarjetas");
     var detallePais = document.getElementById("detallePais");
     var contJuegCap = document.getElementById("juegoCapitales");
-    var contJuegBan = document.getElementById("juegoBanderas");
-    
+    var contJuegBan = document.getElementById("juegoBanderas");    
 
     contenedorTarjetas.style.display = "none";
     detallePais.style.display = "none";
     contJuegCap.style.display = "block";
-    contJuegBan.style.display ="none";
-    
+    contJuegBan.style.display ="none";    
 
     indiceAleatorioCapital = Math.floor(Math.random() * 250);
 
@@ -204,38 +187,28 @@ function juegoCapitales() {
         })
         
         audio.play();
-        console.log(respuestaCorrectasCapital);
-        console.log(respuestaIncorrectasCapital);
+        
         contenedorTarjetas.style.display = "flex";
         contJuegCap.style.display = "none";
-
 
         //Se vuelven a inicializar en cero el puntaje y el índice
         indicePreguntaActualCapital = 0;
         puntajeCapital = 0;
         respuestaCorrectasCapital = 0;
-        respuestaIncorrectasCapital = 0;
-        
+        respuestaIncorrectasCapital = 0;      
 
 
     } else {
         mostrarPregunta(indiceAleatorioCapital, indicePreguntaActualCapital);        
     }
-
-
-
 }
 
-function mostrarPregunta(indiceAleatorioCapital, indicePreguntaActualCapital) {
-    console.log(indicePreguntaActualCapital);
-    console.log(indiceAleatorioCapital);
+function mostrarPregunta(indiceAleatorioCapital, indicePreguntaActualCapital) {    
 
     var pregunta = document.getElementById("juegoCapitales")
 
     paisAleatorio = datosPaises[indiceAleatorioCapital];
-    capitalAleatorio = paisAleatorio.capital[0];
-    console.log(paisAleatorio);
-    console.log(capitalAleatorio);
+    capitalAleatorio = paisAleatorio.capital[0];    
 
     pregunta.innerHTML = `
     <div id="contenedorJuegoBandera" class="card" style="width: 24rem;">
@@ -246,12 +219,9 @@ function mostrarPregunta(indiceAleatorioCapital, indicePreguntaActualCapital) {
         <button id="enviarRespuesta" onclick="verificarRespuesta()">Enviar respuesta</button>
        
         </div>
-    </div>
-    
+    </div>   
     
     `
-
-
 }
 
 function verificarRespuesta() {
@@ -259,7 +229,7 @@ function verificarRespuesta() {
     var respuestaUsuario = document.getElementById("respuesta").value;
 
     if (respuestaUsuario === "" || respuestaUsuario === undefined) {
-        console.log("El campo no puede estar vacío");
+        
         Swal.fire({
 
             icon: 'error',
@@ -269,10 +239,10 @@ function verificarRespuesta() {
         })
     } else {
         if (respuestaUsuario.toLowerCase() !== respuestaCorrecta.toLowerCase()) {
-            console.log("respuesta incorrecta");
+            
             respuestaIncorrectasCapital += 1;
         } else {
-            console.log("respuesta correcta");
+            
             respuestaCorrectasCapital += 1;
         }
         indicePreguntaActualCapital += 1;
@@ -284,10 +254,8 @@ function verificarRespuesta() {
 
 function volver(){
         document.getElementById("contenedorTarjetas").style.display = "flex";
-        document.getElementById("contJuegCap").style.display = "none";
-        document.getElementById("contJuegBan").style.display = "none";
-
-
+        document.getElementById("juegoCapitales").style.display = "none";
+        document.getElementById("juegoBanderas").style.display = "none";
         //Se vuelven a inicializar en cero el puntaje y el índice
         indicePreguntaActualCapital = 0;
         puntajeCapital = 0;
@@ -310,19 +278,15 @@ function juegoBanderas(){
     var contenedorTarjetas = document.getElementById("contenedorTarjetas");
     var detallePais = document.getElementById("detallePais");
     var contJuegBan = document.getElementById("juegoBanderas");
-    var contJuegCap = document.getElementById("juegoCapitales");
-
-    
+    var contJuegCap = document.getElementById("juegoCapitales");    
 
     contenedorTarjetas.style.display = "none";
     detallePais.style.display = "none";
     contJuegBan.style.display = "block";
-    contJuegCap.style.display = "none";
-    
+    contJuegCap.style.display = "none";  
 
 
     indiceAleatorioBandera = Math.floor(Math.random() * 250);
-
 
     if (indicePreguntaActualBandera >= 5) {
         audio.play();
@@ -335,8 +299,7 @@ function juegoBanderas(){
             showConfirmButton: true,
 
         })
-        console.log(respuestaCorrectasBandera);
-        console.log(respuestaIncorrectasBandera);
+        
         contenedorTarjetas.style.display = "flex";
         contJuegBan.style.display = "none";
 
@@ -346,33 +309,20 @@ function juegoBanderas(){
         puntajeBandera = 0;
         respuestaCorrectasBandera = 0;
         respuestaIncorrectasBandera = 0;
-
-
-
     } else {
         mostrarBanderaPais(indiceAleatorioBandera, indicePreguntaActualBandera);
-    }
-
-
-
-
-    
+    }    
 }
 
 function mostrarBanderaPais(indiceAleatorioBandera, indicePreguntaActualBandera){
-    console.log(indicePreguntaActualBandera);
-    console.log(indiceAleatorioBandera);
-    var contJuegBan = document.getElementById("juegoBanderas");
-
     
+    var contJuegBan = document.getElementById("juegoBanderas");    
 
     paisAleatorio = datosPaises[indiceAleatorioBandera];
-    console.log(paisAleatorio)
-    var banderaPaisAleatorio = paisAleatorio.bandera;
     
-    console.log(banderaPaisAleatorio);
+    var banderaPaisAleatorio = paisAleatorio.bandera;      
 
-    contJuegBan.innerHTML = `    
+    contJuegBan.innerHTML = ` 
     
 
     <div id="contenedorJuegoBandera" class="card" style="width: 24rem;">
@@ -384,7 +334,6 @@ function mostrarBanderaPais(indiceAleatorioBandera, indicePreguntaActualBandera)
     </div>
     </div>
     `
-
 }
 
 function verificarRespuestaBandera(){
@@ -400,11 +349,9 @@ function verificarRespuestaBandera(){
 
         })
     } else {
-        if (respuestaUsuario.toLowerCase() !== respuestaCorrecta.toLowerCase()) {
-            console.log("respuesta incorrecta");
+        if (respuestaUsuario.toLowerCase() !== respuestaCorrecta.toLowerCase()) {            
             respuestaIncorrectasBandera += 1;
-        } else {
-            console.log("respuesta correcta");
+        } else {            
             respuestaCorrectasBandera += 1;
         }
         indicePreguntaActualBandera += 1;
@@ -413,7 +360,6 @@ function verificarRespuestaBandera(){
     }
 }
 /*FIN JUEGO BANDERAS*/
-
 fetchData();
 
 
