@@ -16,6 +16,7 @@ async function fetchData() {
             throw new Error('Error en la solicitud');
         }
         const data = await response.json();
+        console.log(data)
 
 
         // Llama a otra función y pásale el array de datos de países
@@ -33,10 +34,10 @@ function processData(countriesData) {
 
     countriesData.forEach(country => {
 
-
+        console.log()
 
         datosPaises.push({
-            nombre: country.name.common,
+            nombre: country.translations.spa.common,
             bandera: country.flags.svg,
             continente: country.region,
             mapa: country.maps.googleMaps,
@@ -218,8 +219,7 @@ function juegoCapitales() {
 
 
     } else {
-        mostrarPregunta(indiceAleatorioCapital, indicePreguntaActualCapital);
-        
+        mostrarPregunta(indiceAleatorioCapital, indicePreguntaActualCapital);        
     }
 
 
@@ -260,6 +260,13 @@ function verificarRespuesta() {
 
     if (respuestaUsuario === "" || respuestaUsuario === undefined) {
         console.log("El campo no puede estar vacío");
+        Swal.fire({
+
+            icon: 'error',
+            title: 'El campo no puede estar vacío ',
+            showConfirmButton: true,
+
+        })
     } else {
         if (respuestaUsuario.toLowerCase() !== respuestaCorrecta.toLowerCase()) {
             console.log("respuesta incorrecta");
@@ -384,15 +391,21 @@ function verificarRespuestaBandera(){
     var respuestaCorrecta = paisAleatorio.nombre;
     var respuestaUsuario = document.getElementById("respuestaBandera").value;
 
-    if (respuestaUsuario === "" || respuestaUsuario === undefined) {
-        console.log("El campo no puede estar vacío");
+    if (respuestaUsuario === "" || respuestaUsuario === undefined) {        
+        Swal.fire({
+
+            icon: 'error',
+            title: 'El campo no puede estar vacío ',
+            showConfirmButton: true,
+
+        })
     } else {
         if (respuestaUsuario.toLowerCase() !== respuestaCorrecta.toLowerCase()) {
             console.log("respuesta incorrecta");
             respuestaIncorrectasBandera += 1;
         } else {
             console.log("respuesta correcta");
-            respuestaIncorrectasBandera += 1;
+            respuestaCorrectasBandera += 1;
         }
         indicePreguntaActualBandera += 1;
         document.getElementById("respuestaBandera").value = "";
