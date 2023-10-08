@@ -214,7 +214,7 @@ function juegoCapitales() {
         puntajeCapital = 0;
         respuestaCorrectasCapital = 0;
         respuestaIncorrectasCapital = 0;
-        botonJuegoCapitales.disabled = false;
+        
 
 
     } else {
