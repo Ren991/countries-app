@@ -195,7 +195,12 @@ function juegoCapitales() {
         indicePreguntaActualCapital = 0;
         puntajeCapital = 0;
         respuestaCorrectasCapital = 0;
-        respuestaIncorrectasCapital = 0;      
+        respuestaIncorrectasCapital = 0;
+        
+        document.documentElement.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
 
 
     } else {
@@ -309,6 +314,10 @@ function juegoBanderas(){
         puntajeBandera = 0;
         respuestaCorrectasBandera = 0;
         respuestaIncorrectasBandera = 0;
+        document.documentElement.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
     } else {
         mostrarBanderaPais(indiceAleatorioBandera, indicePreguntaActualBandera);
     }    
