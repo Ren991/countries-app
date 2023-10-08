@@ -174,26 +174,33 @@ var paisAleatorio;
 var capitalAleatorio;
 var respuestaCorrectas = 0;
 var respuestaIncorrectas = 0;
+var audio = document.getElementById("miAudio");
 
 function juegoCapitales() {
     var contenedorTarjetas = document.getElementById("contenedorTarjetas");
     var detallePais = document.getElementById("detallePais");
-    var contJuegCap = document.getElementById("juegoCapitales")
+    var contJuegCap = document.getElementById("juegoCapitales");
+    var contJuegBan = document.getElementById("juegoBanderas");
 
     contenedorTarjetas.style.display = "none";
     detallePais.style.display = "none";
     contJuegCap.style.display = "block";
+    contJuegBan.style.display ="none";
 
     indiceAleatorio = Math.floor(Math.random() * 250);
 
-    if (indicePreguntaActual > 5) {
+    if (indicePreguntaActual >= 5) {
         Swal.fire({
 
             icon: 'success',
             title: 'Juego terminado',
+            text: `Respuestas correctas: ${respuestaCorrectas}; 
+            Respuestas incorrectas : ${respuestaIncorrectas}`,
             showConfirmButton: true,
 
         })
+        
+        audio.play();
         console.log(respuestaCorrectas);
         console.log(respuestaIncorrectas);
         contenedorTarjetas.style.display = "flex";
@@ -274,11 +281,107 @@ function volver(){
 function juegoBanderas(){
     var contenedorTarjetas = document.getElementById("contenedorTarjetas");
     var detallePais = document.getElementById("detallePais");
-    var contJuegBan = document.getElementById("juegoBanderas")
+    var contJuegBan = document.getElementById("juegoBanderas");
+    var contJuegCap = document.getElementById("juegoCapitales");
+
+    
 
     contenedorTarjetas.style.display = "none";
     detallePais.style.display = "none";
     contJuegBan.style.display = "block";
+    contJuegCap.style.display = "none";
+    
+
+
+    indiceAleatorio = Math.floor(Math.random() * 250);
+
+
+    if (indicePreguntaActual >= 5) {
+        audio.play();
+        Swal.fire({
+
+            icon: 'success',
+            title: 'Juego terminado',
+            text: `Respuestas correctas: ${respuestaCorrectas}; 
+            Respuestas incorrectas : ${respuestaIncorrectas}`,
+            showConfirmButton: true,
+
+        })
+        console.log(respuestaCorrectas);
+        console.log(respuestaIncorrectas);
+        contenedorTarjetas.style.display = "flex";
+        contJuegBan.style.display = "none";
+
+        
+        //Se vuelven a inicializar en cero el puntaje y el índice
+        indicePreguntaActual = 0;
+        puntaje = 0;
+        respuestaCorrectas = 0;
+        respuestaIncorrectas = 0;
+
+
+
+    } else {
+        mostrarBanderaPais(indiceAleatorio, indicePreguntaActual);
+    }
+
+
+
+
+    
+}
+
+function mostrarBanderaPais(indiceAleatorio, indicePreguntaActual){
+    console.log(indicePreguntaActual);
+    console.log(indiceAleatorio);
+    var contJuegBan = document.getElementById("juegoBanderas");
+
+    
+
+    paisAleatorio = datosPaises[indiceAleatorio];
+    console.log(paisAleatorio)
+    var banderaPaisAleatorio = paisAleatorio.bandera;
+    
+    console.log(banderaPaisAleatorio);
+
+    contJuegBan.innerHTML = `    
+    <button onclick="volver()">Volver</button>
+    <h1>De que pais es esta bandera ?</h1>
+    <img src=${banderaPaisAleatorio} height="60" width="60" />
+    <input type="text" id="respuestaBandera" placeholder="Escribe tu respuesta">
+    <button onclick="verificarRespuestaBandera()">Enviar respuesta</button>
+    `
+
+}
+
+function verificarRespuestaBandera(){
+    var respuestaCorrecta =  paisAleatorio.nombre;
+
+    var respuestaUsuario = document.getElementById("respuestaBandera").value;
+    console.log(respuestaUsuario);
+    console.log(respuestaCorrecta);
+
+    if(respuestaUsuario === undefined || respuestaUsuario === ""){
+        console.log("Este campo no puede estar vacío ");
+        Swal.fire({
+
+            icon: 'error',
+            title: 'El campo no puede estar vacío',
+            showConfirmButton: true,
+
+        })
+    }else{
+        if (respuestaUsuario.toLowerCase() !== respuestaCorrecta.toLowerCase()) {
+            console.log("respuesta incorretca")
+            respuestaIncorrectas += 1
+        } else {
+            console.log("respuesta correcta")
+            respuestaCorrecta += 1
+        }
+        indicePreguntaActual += 1
+        document.getElementById("respuestaBandera").value = "";
+        juegoBanderas();
+    }
 }
 /*FIN JUEGO BANDERAS*/
 
