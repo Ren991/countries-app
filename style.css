@@ -1,3 +1,4 @@
+
 header{
     padding: 0;
     margin:0;
@@ -164,11 +165,36 @@ header{
 
 #juegoCapitales{
   display: none;
+  min-height: 580px;
 }
 #juegoBanderas{
   display:none;
+  min-height: 580px;
 }
 
+/*CONTENEDOR JUEGO BANDERAS*/
+#contenedorJuegoBandera{
+  
+  margin-top: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  
+}
+#enviarRespuesta{
+  margin-top: 20px; 
+  padding: 10px 20px; 
+  background-color: #007bff; 
+  color: #fff; 
+  border: none; 
+  border-radius: 5px; 
+  cursor: pointer; 
+}
+
+/*FOOTER*/
+#linkFooter{
+  text-decoration: none;
+  color:rgba(0, 0, 0, 0.763);
+}
 
 @media (min-width: 768px) {
   .botoncerrar {
