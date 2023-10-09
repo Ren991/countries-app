@@ -126,7 +126,7 @@ function filtrarContinente() {
 }
 
 function filtrarPaises() {
-    var ingresoUser = document.getElementById("filtroPais").value;
+    var ingresoUser = document.getElementById("filtroPais").value.toLowerCase();
 
     if (continenteFiltrado.length !== 0) {
         paisesFiltrados = continenteFiltrado.filter(pais => pais.nombre.toLowerCase().includes(ingresoUser));
