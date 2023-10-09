@@ -1,15 +1,20 @@
-// Declara una variable global para almacenar los datos de los países
+// SE DECLARAN 3 VARIABLES GLOBALES.
+// DATOS PAISES ES EL ARRAY QUE TIENE LA RESPUESTA DE LA API
+// CONTINENTE FILTRADO ES EL ARRAY QUE TIENE LOS PAISES DEL CONTINENTE FILTRADO POR EL USUARIO
+// PAISES FILTRADOS ES EL ARRAY QUE TIENE LOS PAISES FILTRADOS POR EL USUARIO
 var datosPaises = [];
 var continenteFiltrado = [];
 var paisesFiltrados = [];
 
 
 function cerrarDetalle() {
+    //ESTA FUNCION CIERRA EL DETALLE DEL PAIS
     var detalleTarjeta = document.getElementById("detallePais");
     detalleTarjeta.style.display = "none"; // Oculta la tarjeta de detalle
 }
 
 async function fetchData() {
+    // FUNCION ASÍNCRONA PARA FETCHEAR LA API 
     try {
         const response = await fetch('https://restcountries.com/v3.1/all');
         if (!response.ok) {
@@ -26,6 +31,8 @@ async function fetchData() {
 }
 
 function processData(countriesData) {
+    // ESTA FUNCION PROCESA LOS DATOS TRAÍDOS DE LA API
+    // LOS ALMACENA EN DATOS PAISES.
 
     datosPaises = [];
 
@@ -50,6 +57,7 @@ function processData(countriesData) {
 }
 
 function muestraTarjetas(datosPaises) {
+    // ESTA FUNCION SE ENCARGA DEL RENDERIZADO DE TARJETAS EN LA VISTA
     var contenedorTarjetas = document.getElementById("contenedorTarjetas");
     var detalleTarjeta = document.getElementById("detallePais");
 
@@ -114,6 +122,9 @@ function muestraTarjetas(datosPaises) {
 }
 
 function filtrarContinente() {
+    // ESTA FUNCION FILTRA EL CONTINENTE MEDIANTE EL SELECT.
+    // VUELVE A LLAMAR LA FUNCION QUE MUESTRA LAS TARJETAS PASANDOLE 
+    // COMO PARÁMETRO LOS PAISES FILTRADOS POR EL CONTINENTE ELEGIDO
     var opcionSeleccionada = document.getElementById("select-continentes").value;
 
     if (opcionSeleccionada !== "0") {
@@ -126,6 +137,7 @@ function filtrarContinente() {
 }
 
 function filtrarPaises() {
+    // ESTA FUNCION FILTRA PAISES INGRESADOR POR EL USUARIO
     var ingresoUser = document.getElementById("filtroPais").value.toLowerCase();
 
     if (continenteFiltrado.length !== 0) {
@@ -153,6 +165,8 @@ function filtrarPaises() {
 }
 
 /*JUEGO CAPITALES*/
+//SE INICIALIZAN VARIABLES GLOBALES PARA DEFINIR
+// INDICES, RESPUESTAS CORRECTAS/ INCORRECTAS.
 var indiceAleatorioCapital;
 var indicePreguntaActualCapital = 0;
 var puntajeCapital = 0;
@@ -163,6 +177,10 @@ var respuestaIncorrectasCapital = 0;
 var audio = document.getElementById("miAudio");
 
 function juegoCapitales() {
+    //ESTA FUNCION GUARDA EN VARIABLES OBJETOS DEL DOM.
+    //SI EL INDICE DE PREGUNTA ACTUAL ES 5 MUESTRA MENSAJE FINALIZADO
+    // SINO LLAMA LA FUNCIÓN QUE MUESTRA PREGUNTA.
+
     var contenedorTarjetas = document.getElementById("contenedorTarjetas");
     var detallePais = document.getElementById("detallePais");
     var contJuegCap = document.getElementById("juegoCapitales");
@@ -208,7 +226,12 @@ function juegoCapitales() {
     }
 }
 
-function mostrarPregunta(indiceAleatorioCapital, indicePreguntaActualCapital) {    
+function mostrarPregunta(indiceAleatorioCapital, indicePreguntaActualCapital) {
+    
+    // ESTA FUNCION TIENE 2 PARÁMETROS , EL INDICEALEATORIO CAPITAL SE USA PARA FILTRAR
+    // EL PAIS ALEATORIO, Y EL INDICE PREGUNTA ACTUAL ES PARA SABER EN QUE PREGUNTA DE LAS 5
+    // ESTÁ EL USER.
+    // TENIENDO EN CUENTA EL PAIS ALEATORIO SE FORMULA LA PREGUNTA
 
     var pregunta = document.getElementById("juegoCapitales")
 
@@ -230,6 +253,11 @@ function mostrarPregunta(indiceAleatorioCapital, indicePreguntaActualCapital) {
 }
 
 function verificarRespuesta() {
+    // ESTA FUNCION VERIFICA LA RESPUESTA INGRESADA POR EL USUARIO
+    // SI LA RESPUESTA ES CORRECTA SUMA 1 EN EL CONTADOR DE LAS CORRECTAS
+    // POR EL CONTRARIO SUMA 1 EN EL CONTRADOR DE LAS INCORRECTAS.
+    // SI EL USUARIO NO INGRESA NADA MUESTRA MENSAJE DE ERROR.
+
     var respuestaCorrecta = capitalAleatorio;
     var respuestaUsuario = document.getElementById("respuesta").value;
 
@@ -258,6 +286,7 @@ function verificarRespuesta() {
 
 
 function volver(){
+        //MEDIANTE ESTA FUNCIÓN SE VUELVE A LA PANTALLA PRINCIPAL.
         document.getElementById("contenedorTarjetas").style.display = "flex";
         document.getElementById("juegoCapitales").style.display = "none";
         document.getElementById("juegoBanderas").style.display = "none";
@@ -271,6 +300,10 @@ function volver(){
 /*FIN JUEGO CAPITALES*/
 
 /*JUEGO BANDERAS*/
+//SE INICIALIZAN VARIABLES GLOBALES PARA DEFINIR
+// INDICES, RESPUESTAS CORRECTAS/ INCORRECTAS.
+// SE INCIALIZAN TAMBIÉN CONTADORES
+
 var indiceAleatorioBandera;
 var indicePreguntaActualBandera = 0;
 var puntajeBandera = 0;
@@ -280,6 +313,10 @@ var respuestaCorrectasBandera = 0;
 var respuestaIncorrectasBandera = 0;
 
 function juegoBanderas(){
+    //ESTA FUNCION GUARDA EN VARIABLES OBJETOS DEL DOM.
+    //SI EL INDICE DE PREGUNTA ACTUAL ES 5 MUESTRA MENSAJE FINALIZADO
+    // SINO LLAMA LA FUNCIÓN QUE MUESTRA PREGUNTA.
+
     var contenedorTarjetas = document.getElementById("contenedorTarjetas");
     var detallePais = document.getElementById("detallePais");
     var contJuegBan = document.getElementById("juegoBanderas");
@@ -324,6 +361,11 @@ function juegoBanderas(){
 }
 
 function mostrarBanderaPais(indiceAleatorioBandera, indicePreguntaActualBandera){
+
+    // ESTA FUNCION TIENE 2 PARÁMETROS , EL INDICEALEATORIO BANDERA SE USA PARA FILTRAR
+    // EL PAIS ALEATORIO, Y EL INDICE PREGUNTA ACTUAL ES PARA SABER EN QUE PREGUNTA DE LAS 5
+    // ESTÁ EL USER.
+    // TENIENDO EN CUENTA EL PAIS ALEATORIO SE FORMULA LA PREGUNTA
     
     var contJuegBan = document.getElementById("juegoBanderas");    
 
@@ -346,6 +388,11 @@ function mostrarBanderaPais(indiceAleatorioBandera, indicePreguntaActualBandera)
 }
 
 function verificarRespuestaBandera(){
+    // ESTA FUNCION VERIFICA LA RESPUESTA INGRESADA POR EL USUARIO
+    // SI LA RESPUESTA ES CORRECTA SUMA 1 EN EL CONTADOR DE LAS CORRECTAS
+    // POR EL CONTRARIO SUMA 1 EN EL CONTRADOR DE LAS INCORRECTAS.
+    // SI EL USUARIO NO INGRESA NADA MUESTRA MENSAJE DE ERROR.
+    
     var respuestaCorrecta = paisAleatorio.nombre;
     var respuestaUsuario = document.getElementById("respuestaBandera").value;
 
